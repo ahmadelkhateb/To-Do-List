@@ -283,7 +283,8 @@ var ToDoListComponent = /** @class */ (function () {
     function ToDoListComponent(http, router) {
         this.http = http;
         this.router = router;
-        this.baseurl = 'http://localhost:8080/api/list/';
+        //private baseurl='http://localhost:8080/api/list/';
+        this.baseurl = 'https://safe-ravine-48359.herokuapp.com/api/list/';
         this.hasList = false;
         this.check_auth = false;
     }
@@ -428,7 +429,8 @@ var UserComponent = /** @class */ (function () {
     function UserComponent(http, router) {
         this.http = http;
         this.router = router;
-        this.baseurl = 'http://localhost:8080/api/user/';
+        //private baseurl='http://localhost:8080/api/user/';
+        this.baseurl = 'https://safe-ravine-48359.herokuapp.com/api/user/';
         this.nUser = new _user__WEBPACK_IMPORTED_MODULE_3__["User"](null, null, null);
         this.register = false;
     }
