@@ -73,7 +73,7 @@ listRouter.put('/addItem', (req,res)=>{
                 }
                 res.status(200).json({
                     list: list,
-                    message: "Item Deleted Successfully"
+                    message: "Item Added Successfully"
                 });
     
             })              
@@ -105,7 +105,7 @@ listRouter.put('/deleteItem', (req,res)=>{
                 }
                 res.status(200).json({
                     list: list,
-                    message: "Item Added Successfully"
+                    message: "Item Deleted Successfully"
                 });
     
             })              
