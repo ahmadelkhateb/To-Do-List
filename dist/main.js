@@ -257,7 +257,7 @@ module.exports = "body {\n    margin: 0;\n    min-width: 250px;\n  }\n  \n  /* I
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav>\n    <div class=\"nav nav-tabs\" style=\"float:left\" id=\"nav-tab\" role=\"tablist\">\n      <a class=\"nav-item nav-link\" routerLinkActive=\"active\" data-toggle=\"tab\" routerLink=\"/toDoList\">List</a>\n    </div>\n    <div class=\"nav nav-tabs\" style=\"float: Right\">\n        <p class=\"nav-item nav-link\">Welcome : {{userName}}</p>\n        <p class=\"nav-item nav-link\"> </p>\n        <a class=\"nav-item nav-link\" data-toggle=\"tab\" href=\"#\" (click)=\"logout()\">Log Out</a>\n    </div>\n  </nav>\n  <br><br>\n  <div class=\"container\">\n    <div id=\"myDIV\" class=\"header\" *ngIf=\"(hasList == false)\">\n        <h2 style=\"margin:5px\">No List Yet</h2>\n        <span (click)=\"createList()\" class=\"addBtn\">+Create New List</span>\n      </div>\n    <div id=\"myDIV\" class=\"header\" *ngIf=\"(hasList == true)\">\n        <h2 style=\"margin:5px\">My To Do List</h2>\n        <input type=\"text\" id=\"myInput\" placeholder=\"Title...\"  #idref>\n        <span (click)=\"addItem(idref.value)\" class=\"addBtn\">Add</span>\n      </div>\n      \n      <ul id=\"myUL\" *ngFor=\"let item of items\">\n        <li>{{item.name}} <span class=\"close\" (click)=\"deleteItem(item._id)\">x</span></li>\n      </ul>\n</div>\n          \n"
+module.exports = "<nav>\n    <div class=\"nav nav-tabs\" style=\"float:left\" id=\"nav-tab\" role=\"tablist\">\n      <a class=\"nav-item nav-link\" routerLinkActive=\"active\" data-toggle=\"tab\" routerLink=\"/toDoList\">List</a>\n    </div>\n    <div class=\"nav nav-tabs\" style=\"float: Right\">\n        <p class=\"nav-item nav-link\">Welcome : {{userName}}</p>\n        <p class=\"nav-item nav-link\"> </p>\n        <a class=\"nav-item nav-link\" data-toggle=\"tab\" href=\"#\" (click)=\"logout()\">Log Out</a>\n    </div>\n  </nav>\n  <br><br>\n  <div class=\"container\">\n    <div id=\"myDIV\" class=\"header\" *ngIf=\"(hasList == false)\">\n        <h2 style=\"margin:5px\">No List Yet</h2>\n        <span (click)=\"createList()\" class=\"addBtn\">+Create New List</span>\n      </div>\n    <div id=\"myDIV\" class=\"header\" *ngIf=\"(hasList == true)\">\n        <h2 style=\"margin:5px\">My To Do List</h2>\n        <input type=\"text\" id=\"myInput\" placeholder=\"Title...\"  #idref>\n        <span (click)=\"addItem(idref.value)\" class=\"addBtn\">Add</span>\n      </div>\n      <div class=\"alert alert-warning\" role=\"alert\" [textContent]=\"msg\" *ngIf=\"(msg)\">\n          \n        </div>\n      <ul id=\"myUL\" *ngFor=\"let item of items\">\n        <li>{{item.name}} <span class=\"close\" (click)=\"deleteItem(item._id)\">x</span></li>\n      </ul>\n</div>\n          \n"
 
 /***/ }),
 
@@ -322,6 +322,7 @@ var ToDoListComponent = /** @class */ (function () {
     };
     ToDoListComponent.prototype.createList = function () {
         var _this = this;
+        this.msg = null;
         return this.http.post(this.baseurl + 'createList', {}, { headers: {
                 'Content-Type': 'application/json', 'Authorization': 'bearer ' + this.token
             } }).subscribe(function (res) {
@@ -336,6 +337,11 @@ var ToDoListComponent = /** @class */ (function () {
     };
     ToDoListComponent.prototype.addItem = function (item) {
         var _this = this;
+        this.msg = null;
+        if (item == "" || item == null) {
+            this.msg = "Please Enter Valid Data";
+            return;
+        }
         return this.http.put(this.baseurl + 'addItem', { item: item }, { headers: {
                 'Content-Type': 'application/json', 'Authorization': 'bearer ' + this.token
             } }).subscribe(function (res) {
@@ -348,6 +354,7 @@ var ToDoListComponent = /** @class */ (function () {
     };
     ToDoListComponent.prototype.deleteItem = function (itemId) {
         var _this = this;
+        this.msg = null;
         return this.http.put(this.baseurl + 'deleteItem', { _id: itemId }, { headers: {
                 'Content-Type': 'application/json', 'Authorization': 'bearer ' + this.token
             } }).subscribe(function (res) {
