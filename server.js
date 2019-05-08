@@ -4,7 +4,13 @@ let express=require("express"),
     path=require("path"),
     bodyParser=require("body-parser"),
     mongoose=require("mongoose");
-    mongoose.connect("mongodb://localhost:27017/to-do-DB", {useNewUrlParser: true });
+    mongoose.connect("mongodb+srv://ahmed:sasuke1234@cluster0-fjjjl.mongodb.net/test?retryWrites=true", {useNewUrlParser: true })
+    .then(() => { // if all is ok we will be here
+    })
+    .catch(err => { // we will not be here...
+        console.error('App starting error:', err.stack);
+        process.exit(1);
+    });;
     mongoose.set('useCreateIndex', true);
 
     //Routes
